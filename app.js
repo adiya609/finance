@@ -1,19 +1,27 @@
-var uiController = (function () {
-  var x = 100;
+//дэлгэцтэй ажиллах контроллер
+var uiController = (function () {})();
 
-  function add(y) {
-    return x + y;
-  }
-  return {
-    publicAdd: function (a) {
-      a = add(a);
-      console.log("Боловсруулсан утга: " + a);
-    },
-  };
-})();
-
+//Санхүүтэй ажиллах контроллер
 var financeController = (function () {})();
 
+//Програмын хологч контроллер
 var appController = (function (uiController, financeController) {
-  uiController.publicAdd(50);
+  var ctrlAddItem = function () {
+    //1. Oruulah ugugdliig delgetsees olj avna.
+    console.log("Delgetsees ugugdluu avah heseg...");
+    //2. Olj avsn ugugdluudee sanhuugiin controllert damjuulj tend hadgalna.
+    //3. Olj avsn ugugdluudiig web deeree tohiroh hesegt gargana.
+    //4. Tusuviig tootsoolno.
+    //5. Etssiin uldegdel tootsoog delgetsend gargana.
+  };
+
+  document.querySelector(".add__btn").addEventListener("click", function () {
+    ctrlAddItem();
+  });
+
+  document.addEventListener("keypress", function (event) {
+    if (event.keyCode === 13 || event.which === 13) {
+      ctrlAddItem();
+    }
+  });
 })(uiController, financeController);
