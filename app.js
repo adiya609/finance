@@ -35,8 +35,9 @@ var financeController = (function () {
     this.description = description;
     this.value = value;
   };
+
   var data = {
-    allItems: {
+    items: {
       inc: [],
       exp: [],
     },
@@ -46,6 +47,11 @@ var financeController = (function () {
       exp: 0,
     },
   };
+  return {
+    addItem: function (type, desc, val) {
+      console.log("item added");
+    },
+  };
 })();
 
 //Програмын хологч контроллер
@@ -53,6 +59,9 @@ var appController = (function (uiController, financeController) {
   var ctrlAddItem = function () {
     //1. Oruulah ugugdliig delgetsees olj avna.
     console.log(uiController.getInput());
+    console.log(
+      financeController.addItem(input.type, input.description, input.value)
+    );
     //2. Olj avsn ugugdluudee sanhuugiin controllert damjuulj tend hadgalna.
     //3. Olj avsn ugugdluudiig web deeree tohiroh hesegt gargana.
     //4. Tusuviig tootsoolno.
