@@ -19,6 +19,27 @@ var uiController = (function () {
     getDomStrings: function () {
       return DOMstrings;
     },
+
+    addListItem: function (item, type) {
+      // Орлого зарлагын элементийг агуулсан html-ийг бэлтгэнэ
+
+      var html, list;
+      if (type === "inc") {
+        list = ".income__list";
+        html =
+          '<div class="item clearfix" id="income-%id%"><div class="item__description">$$DESCRIPTION$$</div><div class="right clearfix"><div class="item__value">$$VALUE$$</div><div class="item__delete"><button class="item__delete--btn"><iclass="ion-ios-close-outline"></iclass="ion-ios-close-outline"></button></div></div></div>';
+      } else {
+        list = ".expenses__list";
+        html =
+          '<div class="item clearfix" id="expense-%id%"><div class="item__description">$$DESCRIPTION$$</div><div class="right clearfix"><div class="item__value">$$VALUE$$</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+      }
+      // Тэр HTML дотроо орлого зарлагын утгуудыг REPLACE ашиглаж өөрчилж өгнө
+      html = html.replace("%id%", item.id);
+      html = html.replace("$$DESCRIPTION$$", item.description);
+      html = html.replace("$$VALUE$$", item.value);
+      // Бэлтгэсэн HTML ээ DOM хийж өгнө
+      document.querySelector(list).insertAdjacentHTML("beforeend", html);
+    },
   };
 })();
 
@@ -63,6 +84,8 @@ var financeController = (function () {
       }
 
       data.items[type].push(item);
+
+      return item;
     },
 
     seeData: function () {
@@ -76,10 +99,16 @@ var appController = (function (uiController, financeController) {
   var ctrlAddItem = function () {
     //1. Oruulah ugugdliig delgetsees olj avna.
     var input = uiController.getInput();
-    financeController.addItem(input.type, input.description, input.value);
 
     //2. Olj avsn ugugdluudee sanhuugiin controllert damjuulj tend hadgalna.
+    var item = financeController.addItem(
+      input.type,
+      input.description,
+      input.value
+    );
+
     //3. Olj avsn ugugdluudiig web deeree tohiroh hesegt gargana.
+    uiController.addListItem(item, input.type);
     //4. Tusuviig tootsoolno.
     //5. Etssiin uldegdel tootsoog delgetsend gargana.
   };
