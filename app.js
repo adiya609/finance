@@ -25,7 +25,7 @@ var uiController = (function () {
 //Санхүүтэй ажиллах контроллер
 var financeController = (function () {
   var Income = function (id, description, value) {
-    this.aid = id;
+    this.id = id;
     this.description = description;
     this.value = value;
   };
@@ -49,7 +49,24 @@ var financeController = (function () {
   };
   return {
     addItem: function (type, desc, val) {
-      console.log("item added");
+      var item, id;
+      if (data.items[type].length === 0) id = 1;
+      else {
+        id = data.items[type][data.items[type].length - 1].id + 1;
+      }
+
+      if (type === "inc") {
+        item = new Income(id, desc, val);
+      } else {
+        //type === 'expense'
+        item = new Expense(id, desc, val);
+      }
+
+      data.items[type].push(item);
+    },
+
+    seeData: function () {
+      return data;
     },
   };
 })();
@@ -58,10 +75,9 @@ var financeController = (function () {
 var appController = (function (uiController, financeController) {
   var ctrlAddItem = function () {
     //1. Oruulah ugugdliig delgetsees olj avna.
-    console.log(uiController.getInput());
-    console.log(
-      financeController.addItem(input.type, input.description, input.value)
-    );
+    var input = uiController.getInput();
+    financeController.addItem(input.type, input.description, input.value);
+
     //2. Olj avsn ugugdluudee sanhuugiin controllert damjuulj tend hadgalna.
     //3. Olj avsn ugugdluudiig web deeree tohiroh hesegt gargana.
     //4. Tusuviig tootsoolno.
