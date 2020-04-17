@@ -58,7 +58,19 @@ var uiController = (function () {
         " сарын " +
         unuudur.getDate();
     },
-
+    changeType: function () {
+      var fields = document.querySelectorAll(
+        DOMstrings.addStrings +
+          "," +
+          DOMstrings.descStrings +
+          "," +
+          DOMstrings.valueStrings
+      );
+      nodeListForeach(fields, function (el) {
+        el.classList.toggle("red-focus");
+      });
+      document.querySelector(DOMstrings.addBtn).classList.toggle("red");
+    },
     getInput: function () {
       return {
         type: document.querySelector(DOMstrings.addStrings).value,
@@ -302,6 +314,10 @@ var appController = (function (uiController, financeController) {
         ctrlAddItem();
       }
     });
+
+    document
+      .querySelector(DOM.addStrings)
+      .addEventListener("change", uiController.changeType);
     document
       .querySelector(DOM.containerDiv)
       .addEventListener("click", function (event) {
