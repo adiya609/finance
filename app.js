@@ -262,6 +262,16 @@ var financeController = (function () {
     },
 
     seeData: function () {
+      var name = "Boldoo";
+      var age = 33;
+
+      console.log(name + " нэртэй " + age + " настай");
+      (function () {
+        var name = "Tsetsgee";
+        var age = 36;
+        console.log(name + " нэртэй " + age + " настай");
+      })();
+
       return data;
     },
   };
